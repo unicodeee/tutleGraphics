@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class TurtleController implements ActionListener, Subscriber {
-    private Turtle turtle;
-    private JPanel controls;
+    private final Turtle turtle;
+    private final JPanel controls;
     private JTextField distanceInput;
-    private JButton northButton, southButton, eastButton, westButton, penToggle, colorButton;
+    private JButton northButton, southButton, eastButton, westButton, penToggle, colorButton, clear;
 
     public TurtleController(Turtle turtle) {
         this.turtle = turtle;
@@ -32,6 +32,7 @@ public class TurtleController implements ActionListener, Subscriber {
         westButton = new JButton("West");
         penToggle = new JButton("Pen Up/Down");
         colorButton = new JButton("Set Color");
+        clear = new JButton("Clear");
 
         northButton.addActionListener(this);
         southButton.addActionListener(this);
@@ -39,6 +40,7 @@ public class TurtleController implements ActionListener, Subscriber {
         westButton.addActionListener(this);
         penToggle.addActionListener(this);
         colorButton.addActionListener(this);
+        clear.addActionListener(this);
 
         controlPanel.add(northButton);
         controlPanel.add(southButton);
@@ -46,6 +48,7 @@ public class TurtleController implements ActionListener, Subscriber {
         controlPanel.add(westButton);
         controlPanel.add(penToggle);
         controlPanel.add(colorButton);
+        controlPanel.add(clear);
 
         distanceInput = new JTextField(5);
         controlPanel.add(new JLabel("Distance:"));
@@ -81,6 +84,9 @@ public class TurtleController implements ActionListener, Subscriber {
                 if (newColor != null) {
                     turtle.setPenColor(newColor);
                 }
+                break;
+            case "Clear":
+                turtle.clear();
                 break;
         }
     }

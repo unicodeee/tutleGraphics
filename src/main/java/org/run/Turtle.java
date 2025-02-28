@@ -57,6 +57,13 @@ public class Turtle {
         events.notify("penToggle", null);
     }
 
+    public void clear() {
+        Point tempt = path.getFirst();
+        path.clear();
+        path.add(tempt);
+        events.notify("move", null); // trigger move event to repaint after clearing the path
+    }
+
     public void setPenColor(Color color) {
         this.path.getLast().penColor = color;
         events.notify("colorChange", null);
