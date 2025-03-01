@@ -2,6 +2,7 @@ package org.run;
 
 import tools.EventManager;
 import tools.Model;
+import tools.SETTINGS;
 
 import java.awt.Color;
 import java.io.Serializable;
@@ -39,14 +40,14 @@ public class Turtle extends Model implements Serializable {
 
     public void moveSouth(int distance) {
         Point newPoint = copyLast();
-        newPoint.y = Math.min(250, newPoint.y + distance);
+        newPoint.y = Math.min(SETTINGS.WORLD_SIZE, newPoint.y + distance);
         path.add(newPoint);
         eventManager.notify("move", null);
     }
 
     public void moveEast(int distance) {
         Point newPoint = copyLast();
-        newPoint.x = Math.min(250, newPoint.x + distance);
+        newPoint.x = Math.min(SETTINGS.WORLD_SIZE, newPoint.x + distance);
         path.add(newPoint);
         eventManager.notify("move", null);
     }

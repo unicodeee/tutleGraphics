@@ -1,6 +1,7 @@
 package org.run;
 
 
+import tools.SETTINGS;
 import tools.Utilities;
 
 import javax.swing.*;
@@ -23,16 +24,11 @@ public class TurtleMenuPanel extends JPanel implements ActionListener {
         return result;
     }
 
-    public TurtleMenuPanel(){
-        Point startPoint = new Point(125, 125, true, Color.BLACK);
-        Turtle turtle = new Turtle(startPoint);
-        TurtleView view = new TurtleView(turtle);
-        TurtleControllerPanel controller = new TurtleControllerPanel(turtle);
-
-        this.turtle = turtle;
-        this.view = view;
-        this.controller = controller;
-
+    public TurtleMenuPanel() {
+        Point startPoint = new Point(SETTINGS.WORLD_SIZE / 2, SETTINGS.WORLD_SIZE / 2, true, Color.BLACK);
+        turtle = new Turtle(startPoint);
+        view = new TurtleView(turtle);
+        controller = new TurtleControllerPanel(turtle);
 
         turtle.getEventManager().subscribe("move", view);
         turtle.getEventManager().subscribe("penToggle", view);
@@ -41,12 +37,14 @@ public class TurtleMenuPanel extends JPanel implements ActionListener {
         JFrame frame = new JFrame();
         frame.setJMenuBar(this.createMenuBar());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(1, 2));
-        frame.add(controller.getControls());
-        frame.add(view);
-        frame.setSize(1000, 600);
+        frame.setLayout(new BorderLayout()); // Use BorderLayout instead of GridLayout
+
+        frame.add(controller.getControls(), BorderLayout.WEST);  // Add the controller to the left
+        frame.add(view, BorderLayout.CENTER);  // Add the view to the center
+        frame.setSize(500, 300);
         frame.setVisible(true);
     }
+
 
     public static void main(String[] args) {
         TurtleMenuPanel t = new TurtleMenuPanel();

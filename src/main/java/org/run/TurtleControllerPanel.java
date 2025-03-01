@@ -14,10 +14,13 @@ public class TurtleControllerPanel implements ActionListener {
     public TurtleControllerPanel(Turtle turtle) {
         this.turtle = turtle;
         controls = new JPanel();
-        controls.setBackground(Color.PINK);
+        controls.setBackground(Color.GRAY);
+        controls.setLayout(new BorderLayout()); // Use BorderLayout for flexible layout
 
         createControlPanel();
+        controls.setPreferredSize(new Dimension(250, 250)); // Set preferred size for controller
     }
+
 
     public void setTurtle(Turtle turtle) {
         this.turtle = turtle;
@@ -43,14 +46,15 @@ public class TurtleControllerPanel implements ActionListener {
         clear.addActionListener(this);
 
         controlPanel.add(northButton);
-        controlPanel.add(southButton);
-        controlPanel.add(eastButton);
         controlPanel.add(westButton);
+        controlPanel.add(eastButton);
+        controlPanel.add(southButton);
         controlPanel.add(penToggle);
         controlPanel.add(colorButton);
         controlPanel.add(clear);
 
         distanceInput = new JTextField(5);
+        distanceInput.setText("10");
         controlPanel.add(new JLabel("Distance:"));
         controlPanel.add(distanceInput);
 

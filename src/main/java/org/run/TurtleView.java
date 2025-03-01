@@ -1,6 +1,7 @@
 package org.run;
 
 
+import tools.SETTINGS;
 import tools.Subscriber;
 
 import javax.swing.*;
@@ -38,7 +39,16 @@ public class TurtleView extends JPanel implements Subscriber {
         } else {
             g.fillOval(turtle.getX() - 5, turtle.getY() - 5, 10, 5);
         }
+
+        // Make sure to call revalidate and repaint when resizing or updating the view
+        revalidate();
+        repaint();
     }
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(250, 250);  // Setting the preferred size to 250x250
+    }
+
 
     @Override
     public void update() {
