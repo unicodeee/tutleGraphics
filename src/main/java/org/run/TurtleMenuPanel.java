@@ -18,8 +18,6 @@ public class TurtleMenuPanel extends JPanel implements ActionListener {
         JMenuBar result = new JMenuBar();
         JMenu fileMenu = Utilities.makeMenu("File", new String[]{"New", "Save", "Save As", "Open", "Quit"}, this);
         result.add(fileMenu);
-        JMenu editMenu = Utilities.makeMenu("Edit", new String[]{"Change"}, this);
-        result.add(editMenu);
         JMenu helpMenu = Utilities.makeMenu("Help", new String[]{"About", "Help"}, this);
         result.add(helpMenu);
         return result;
