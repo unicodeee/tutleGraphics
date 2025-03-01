@@ -12,9 +12,11 @@ public class TurtleView extends JPanel implements Subscriber {
     public TurtleView(Turtle turtle) {
         this.turtle = turtle;
         this.setBackground(Color.WHITE);
-        turtle.getEvents().subscribe("move", this);
-        turtle.getEvents().subscribe("penToggle", this);
-        turtle.getEvents().subscribe("colorChange", this);
+    }
+
+    public void setTurtle(Turtle newTurtle) {
+        turtle = newTurtle;
+        repaint();
     }
 
     @Override

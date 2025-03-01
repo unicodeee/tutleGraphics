@@ -1,15 +1,12 @@
 package org.run;
 
-
-import tools.Subscriber;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TurtleController implements ActionListener, Subscriber {
-    private final Turtle turtle;
+public class TurtleController implements ActionListener {
+    private Turtle turtle;
     private final JPanel controls;
     private JTextField distanceInput;
     private JButton northButton, southButton, eastButton, westButton, penToggle, colorButton, clear;
@@ -18,9 +15,12 @@ public class TurtleController implements ActionListener, Subscriber {
         this.turtle = turtle;
         controls = new JPanel();
         controls.setBackground(Color.PINK);
-        turtle.getEvents().subscribe("move", this);
 
         createControlPanel();
+    }
+
+    public void setTurtle(Turtle turtle) {
+        this.turtle = turtle;
     }
 
     private void createControlPanel() {
@@ -89,11 +89,6 @@ public class TurtleController implements ActionListener, Subscriber {
                 turtle.clear();
                 break;
         }
-    }
-
-    @Override
-    public void update() {
-        // Handle updates
     }
 
     public JPanel getControls() {
