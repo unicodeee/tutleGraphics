@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TurtleController implements ActionListener {
+public class TurtleControllerPanel implements ActionListener {
     private Turtle turtle;
     private final JPanel controls;
     private JTextField distanceInput;
     private JButton northButton, southButton, eastButton, westButton, penToggle, colorButton, clear;
 
-    public TurtleController(Turtle turtle) {
+    public TurtleControllerPanel(Turtle turtle) {
         this.turtle = turtle;
         controls = new JPanel();
         controls.setBackground(Color.PINK);

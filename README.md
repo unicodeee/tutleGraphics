@@ -33,7 +33,7 @@ This project demonstrates a basic GUI application that visualizes turtle movemen
    After compilation, you can run the program using the `java` command:
 
    ```bash
-   java -cp ../bin org.run.TurtleController
+   java -cp ../bin org.run.TurtleControllerPanel
    ```
 
 4. **Optional - Build with Maven or Gradle:**
@@ -44,7 +44,7 @@ This project demonstrates a basic GUI application that visualizes turtle movemen
 
       ```bash
       mvn clean package
-      java -cp target/<your-jar>.jar org.run.TurtleController
+      java -cp target/<your-jar>.jar org.run.TurtleControllerPanel
       ```
 
     - **Using Gradle:**

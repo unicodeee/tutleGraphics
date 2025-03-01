@@ -1,6 +1,8 @@
 package tools;
 
-public abstract class Model {
+import java.io.Serializable;
+
+public abstract class Model implements Serializable {
     private String fileName;
     private boolean unsavedChanges;
     protected boolean saveAs;  // Add this flag to track "Save As" state

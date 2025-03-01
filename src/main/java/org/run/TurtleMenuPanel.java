@@ -9,14 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class TurtlePanel extends JPanel implements ActionListener {
+public class TurtleMenuPanel extends JPanel implements ActionListener {
     private Turtle turtle;
     private TurtleView view;
-    private TurtleController controller;
+    private TurtleControllerPanel controller;
 
     protected JMenuBar createMenuBar() {
         JMenuBar result = new JMenuBar();
-        JMenu fileMenu = Utilities.makeMenu("File", new String[]{"New", "Save", "Open", "Quit"}, this);
+        JMenu fileMenu = Utilities.makeMenu("File", new String[]{"New", "Save", "Save As", "Open", "Quit"}, this);
         result.add(fileMenu);
         JMenu editMenu = Utilities.makeMenu("Edit", new String[]{"Change"}, this);
         result.add(editMenu);
@@ -25,11 +25,11 @@ public class TurtlePanel extends JPanel implements ActionListener {
         return result;
     }
 
-    public TurtlePanel(){
+    public TurtleMenuPanel(){
         Point startPoint = new Point(125, 125, true, Color.BLACK);
         Turtle turtle = new Turtle(startPoint);
         TurtleView view = new TurtleView(turtle);
-        TurtleController controller = new TurtleController(turtle);
+        TurtleControllerPanel controller = new TurtleControllerPanel(turtle);
 
         this.turtle = turtle;
         this.view = view;
@@ -51,7 +51,7 @@ public class TurtlePanel extends JPanel implements ActionListener {
     }
 
     public static void main(String[] args) {
-        TurtlePanel t = new TurtlePanel();
+        TurtleMenuPanel t = new TurtleMenuPanel();
     }
 
     @Override
@@ -59,15 +59,20 @@ public class TurtlePanel extends JPanel implements ActionListener {
         String cmmd = e.getActionCommand();
         try {
             switch (cmmd) {
-                case "Change":
-//                    light.change();
+                case "New": {
+                    if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
+                        turtle.startOver();
+                    }
                     break;
+                }
 
                 case "Save": {
-                    String fName = Utilities.getFileName((String) null, false);
-                    ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fName));
-                    os.writeObject(turtle);
-                    os.close();
+                    Utilities.save(turtle, false);
+                    break;
+                }
+
+                case "Save As": {
+                    Utilities.save(turtle, true);
                     break;
                 }
 
@@ -87,14 +92,13 @@ public class TurtlePanel extends JPanel implements ActionListener {
                         view.setTurtle(turtle);
                         is.close();
                     }
-
                     break;
-
                 }
 
-
                 case "Quit": {
-                    System.exit(0);
+                    if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
+                        System.exit(0);
+                    }
                     break;
                 }
 
@@ -115,7 +119,6 @@ public class TurtlePanel extends JPanel implements ActionListener {
                     };
                     Utilities.inform(cmmds);
                     break;
-
                 }
 
                 default: {

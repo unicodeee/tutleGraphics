@@ -109,4 +109,10 @@ public class Turtle extends Model implements Serializable {
     public void setFileName(String fName) {
         super.setFileName(fName);  // Call the superclass method to set the file name
     }
+
+    public void startOver() {
+        clear();
+        this.setFileName(null);
+        this.setSaveAs(true);
+    }
 }
