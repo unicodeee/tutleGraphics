@@ -55,10 +55,12 @@ public class TurtleMenuPanel extends JPanel implements ActionListener {
         String cmmd = e.getActionCommand();
         try {
             switch (cmmd) {
+
                 case "New": {
-                    if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
-                        turtle.startOver();
+                    if (turtle.getUnsavedChanges()) {
+                        Utilities.saveChanges(turtle);
                     }
+                    turtle.startOver();
                     break;
                 }
 
@@ -74,27 +76,32 @@ public class TurtleMenuPanel extends JPanel implements ActionListener {
 
                 case "Open": {
 
-                    if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
-                        String fName = Utilities.getFileName((String) null, true);
-                        ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
-                        turtle = (Turtle) is.readObject();
-                        turtle.getEventManager().unsubscribeAllEventType();
-                        // Re-subscribe the view to the new turtle's events
-                        turtle.getEventManager().subscribe("move", view);
-                        turtle.getEventManager().subscribe("penToggle", view);
-                        turtle.getEventManager().subscribe("colorChange", view);
-
-                        controller.setTurtle(turtle);
-                        view.setTurtle(turtle);
-                        is.close();
+                    if (turtle.getUnsavedChanges()) {
+                        Utilities.saveChanges(turtle);
                     }
+
+                    Utilities.saveChanges(turtle);
+                    String fName = Utilities.getFileName((String) null, true);
+                    ObjectInputStream is = new ObjectInputStream(new FileInputStream(fName));
+                    turtle = (Turtle) is.readObject();
+                    turtle.getEventManager().unsubscribeAllEventType();
+                    // Re-subscribe the view to the new turtle's events
+                    turtle.getEventManager().subscribe("move", view);
+                    turtle.getEventManager().subscribe("penToggle", view);
+                    turtle.getEventManager().subscribe("colorChange", view);
+
+                    controller.setTurtle(turtle);
+                    view.setTurtle(turtle);
+                    is.close();
                     break;
                 }
 
                 case "Quit": {
-                    if (Utilities.confirm("Are you sure? Unsaved changes will be lost!")) {
-                        System.exit(0);
+
+                    if (turtle.getUnsavedChanges()) {
+                        Utilities.saveChanges(turtle);
                     }
+                    System.exit(0);
                     break;
                 }
 
@@ -121,7 +128,6 @@ public class TurtleMenuPanel extends JPanel implements ActionListener {
                     throw new Exception("Unrecognized command: " + cmmd);
                 }
             }
-
         } catch (Exception ex) {
             Utilities.error(ex);
         }

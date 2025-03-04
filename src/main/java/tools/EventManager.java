@@ -38,7 +38,7 @@ public class EventManager implements Serializable { // This is concreate Publish
         }
     }
 
-    public void notify(String eventType, Subscriber data) {
+    public void notify(String eventType) {
         List<Subscriber> users = subscribers.get(eventType);
         for (Subscriber subscriber : users) {
             subscriber.update();

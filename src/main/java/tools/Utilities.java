@@ -54,6 +54,7 @@ public class Utilities {
 
     // asks user to save changes
     public static void saveChanges(Model model) {
+        if ( model == null ) {throw new NullPointerException();};
         if (model.getUnsavedChanges() && Utilities.confirm("current model has unsaved changes, continue?"))
             Utilities.save(model, false);
     }
